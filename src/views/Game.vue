@@ -16,9 +16,10 @@
     <div v-else class="info row">
       Welcome to Set!
     </div>
-    <div v-if="connected===0" class="alert">Connecting</div>
-    <div v-if="connected===2" class="alert">Disconnected, reload to rejoin</div>
-
+    <div class="alert">
+      <div v-if="connected===0">Connecting</div>
+      <div v-if="connected===2">Disconnected <button @click="reload()">reload</button> to rejoin</div>
+    </div>
     <div class="main">
       <div class="column" id="deal">
         <button id="deal-btn" @click="nosets()" class="button-primary">no sets (deal more)</button>
@@ -208,12 +209,15 @@
           e.preventDefault();
           this.selectHandler(location);
         }
+      },
+      reload() {
+        window.location.reload(true)
       }
-    }
+    },
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   html {
     height: 100%;
   }
@@ -257,6 +261,11 @@
     color: white;
     padding: 10px 40px 10px 20px;
     z-index: 1000;
+    display: flex;
+    justify-content: center;
+    button {
+      color: white;
+    }
   }
 
   .info {
