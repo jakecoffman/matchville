@@ -14,13 +14,13 @@
       {{alert.Words}}
     </div>
     <div v-else class="info row">
-      Welcome to Set!
+      Welcome to Matchville!
     </div>
     <div class="alert" v-if="connected !== 1">
       <div v-if="connected===0">Connecting</div>
       <div v-if="connected===2">Disconnected <button @click="reload()">reload</button> to rejoin</div>
     </div>
-    <div class="main">
+    <div class="main" v-if="playing">
       <div class="column" id="deal">
         <button id="deal-btn" @click="nosets()" class="button-primary">no sets (deal more)</button>
       </div>
@@ -40,8 +40,15 @@
         </div>
       </transition-group>
     </div>
-    <hr/>
+
     <div class="column" id="more">
+      <div v-if="!playing" class="column">
+        <br/>
+        <button @click="readyUp()" :class="{ready: me.Ready, notReady: !me.Ready}">
+          <span v-if="me.Ready">Unready</span>
+          <span v-else>Ready up</span>
+        </button>
+      </div>
       <div id="players">
         <table>
           <thead>
@@ -52,7 +59,7 @@
           </thead>
           <tbody>
           <tr v-for="player of players" :key="player.Id">
-            <td>{{player.Id}}
+            <td>{{player.Name || player.Id}}
               <span class="aside" v-if="player.Connected === false">(offline)</span>
               <span class="aside" v-if="you === player.Id">(you)</span>
             </td>
@@ -62,13 +69,16 @@
         </table>
       </div>
       <p>Game ID: {{gameId}}</p>
+      <router-link tag="button" class="pink" :to="'/'+gameId+'/help'">how to play</router-link>
+      <div class="conjoined">
+        <input type="text" v-model="name" placeholder="Rename yourself" maxlength="9">
+        <button @click="rename(name)">rename</button>
+      </div>
       <button @click="join('')">start a new game</button>
-      <label for="join">Join a game</label>
-      <div>
-        <input type="number" v-model="input" placeholder="Game ID" id="join">
+      <div class="conjoined">
+        <input type="number" v-model="input" placeholder="Join by Game ID" id="join">
         <button @click="join(input)">join</button>
       </div>
-      <router-link tag="button" class="pink" :to="'/'+gameId+'/help'">how to play</router-link>
     </div>
 
   </div>
@@ -86,6 +96,7 @@
         ws: null,
         connected: 0,
 
+        playing: false,
         cards: [],
         gameId: '',
         players: [],
@@ -94,6 +105,7 @@
         selected: [], // selected cards (local only),
 
         input: '',
+        name: '',
         alert: null,
         help: false,
 
@@ -115,6 +127,11 @@
       this.ws.onerror = this.onerror.bind(this);
       this.ws.onclose = this.onclose.bind(this);
       this.ws.onmessage = this.onmessage.bind(this);
+    },
+    computed: {
+      me() {
+        return this.players.find(p => p.Id === this.you)
+      }
     },
     methods: {
       onopen(e) {
@@ -145,6 +162,7 @@
             }
             this.version = data.Version;
             this.players = data.Players;
+            this.playing = data.Playing;
             this.you = data.You;
             break;
           case 'all':
@@ -173,6 +191,12 @@
       },
       join(id) {
         this.ws.send(JSON.stringify({Type: "join", Data: id}));
+      },
+      readyUp() {
+        this.ws.send(JSON.stringify({Type: "ready"}));
+      },
+      rename() {
+        this.ws.send(JSON.stringify({Type: "rename", Data: this.name}));
       },
       selectHandler(location) {
         if (this.handling) {
@@ -338,8 +362,7 @@
   }
 
   .pink {
-    background-color: pink;
-    color: white;
+    background-color: #edefff;
   }
 
   #deal {
@@ -352,5 +375,26 @@
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+  }
+
+  .ready {
+    background: red;
+  }
+  .notReady {
+    background: #b2ffb2;
+  }
+
+  .conjoined {
+    display: flex;
+    flex-direction: row;
+
+    input {
+      border-radius: 4px 0 0 4px;
+      border-right: none;
+    }
+
+    button {
+      border-radius: 0 4px 4px 0;
+    }
   }
 </style>
