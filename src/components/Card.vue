@@ -1,6 +1,6 @@
 <template>
-  <div class="card small" :class="classes">
-    <div v-if="shape === 'n'">
+  <div>
+    <div v-if="shape === 'n'" class="card small" :class="classes">
       <div class="shape" v-for="a of amount" :key="a">
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 106.058">
           <path
@@ -8,14 +8,14 @@
         </svg>
       </div>
     </div>
-    <div v-if="shape === 'd'">
+    <div v-if="shape === 'd'" class="card small" :class="classes">
       <div class="shape" v-for="a of amount" :key="a">
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 223.621 104.493">
           <polygon points="211.811,52.247 111.811,98.974 11.811,52.247 111.811,5.519"></polygon>
         </svg>
       </div>
     </div>
-    <div v-if="shape === 'p'">
+    <div v-if="shape === 'p'" class="card small" :class="classes">
       <div class="shape" v-for="a of amount" :key="a">
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 101.429">
           <path
