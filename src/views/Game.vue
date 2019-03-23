@@ -61,7 +61,8 @@
           <tr v-for="player of players" :key="player.Id">
             <td>{{player.Name || player.Id}}
               <span class="aside" v-if="player.Connected === false">(offline)</span>
-              <span class="aside" v-if="you === player.Id">(you)</span>
+              <span class="aside" v-if="you === player.Id">(you) </span>
+              <span class="aside" v-if="!player.Ready">Not Ready</span>
             </td>
             <td>{{player.Score}}</td>
           </tr>
@@ -193,7 +194,7 @@
         this.ws.send(JSON.stringify({Type: "join", Data: id}));
       },
       readyUp() {
-        this.ws.send(JSON.stringify({Type: "ready"}));
+        this.ws.send(JSON.stringify({Type: "ready", Data: !this.Ready}));
       },
       rename() {
         this.ws.send(JSON.stringify({Type: "rename", Data: this.name}));
