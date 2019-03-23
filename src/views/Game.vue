@@ -194,7 +194,7 @@
         this.ws.send(JSON.stringify({Type: "join", Data: id}));
       },
       readyUp() {
-        this.ws.send(JSON.stringify({Type: "ready", Data: !this.Ready}));
+        this.ws.send(JSON.stringify({Type: "ready", Data: !this.me.Ready}));
       },
       rename() {
         this.ws.send(JSON.stringify({Type: "rename", Data: this.name}));
