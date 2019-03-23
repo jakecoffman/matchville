@@ -271,6 +271,12 @@
     grid-gap: 0.5rem;
   }
 
+  @media(min-width: 700px) {
+    #cards {
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    }
+  }
+
   #more {
     margin: 0;
     padding: 0;
