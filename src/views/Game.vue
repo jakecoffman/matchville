@@ -130,7 +130,7 @@
     },
     computed: {
       me() {
-        return this.players.find(p => p.Id === this.you)
+        return this.players.find(p => p.Id === this.you) || {Ready: false}
       }
     },
     methods: {
