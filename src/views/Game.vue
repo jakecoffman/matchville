@@ -244,35 +244,15 @@
   }
 
   #cards {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin: auto;
-    min-height: 100%;
-  }
-
-  @media (max-width: 450px) {
-    #cards {
-      width: 300px;
-    }
-  }
-
-  @media (min-width: 451px) and (max-width: 599px){
-    #cards {
-      width: 350px;
-    }
-  }
-
-  @media (min-width: 600px) {
-    #cards {
-      width: 500px;
-    }
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 0.5rem;
   }
 
   #more {
     margin: 0;
     padding: 0;
+    z-index: 1000;
   }
 
   .alert {
@@ -375,5 +355,6 @@
   .main {
     display: flex;
     flex-direction: row;
+    justify-content: space-evenly;
   }
 </style>
