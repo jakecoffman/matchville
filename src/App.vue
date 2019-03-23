@@ -1,20 +1,49 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
     <router-view/>
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="striped-red" class="pattern" x="10" y="10" width="20" height="20" patternUnits="userSpaceOnUse">
+          <rect x="0" y="0" width="10" height="200" style="stroke: none; fill: #E74C3C"></rect>
+        </pattern>
+
+        <pattern id="striped-purple" class="pattern" x="10" y="10" width="20" height="20" patternUnits="userSpaceOnUse">
+          <rect x="0" y="0" width="10" height="200" style="stroke: none;" fill="#9B59B6"></rect>
+        </pattern>
+
+        <pattern id="striped-green" class="pattern" x="10" y="10" width="20" height="20" patternUnits="userSpaceOnUse">
+          <rect x="0" y="0" width="10" height="200" style="stroke: none; fill: #2ECC71"></rect>
+        </pattern>
+      </defs>
+    </svg>
   </div>
 </template>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<script>
+  export default {
+    name: 'app'
+  }
+</script>
+
+<style lang="scss">
+  @import 'src/assets/normalize';
+  @import 'src/assets/skeleton';
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .flex-1 {
+    flex: 1;
+  }
 </style>
