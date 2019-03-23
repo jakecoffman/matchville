@@ -93,6 +93,12 @@
   }
 
   .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
     --width: 70px;
     width: var(--width);
     height: calc(var(--width) * 1.5);
@@ -100,20 +106,6 @@
     border-radius: 6px;
     -webkit-box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.3);
     box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.3);
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
-    cursor: pointer;
-    -webkit-transition: -webkit-transform 0.2s ease-in-out;
     transition: transform 0.2s ease-in-out;
     margin: 5px;
   }
