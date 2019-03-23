@@ -270,12 +270,6 @@
     z-index: 1000;
   }
 
-  .tiny {
-    --width: 30px;
-    width: var(--width);
-    height: calc(var(--width) * 1.5);
-  }
-
   .bounce-enter-active {
     animation: bounceIn 0.75s;
   }

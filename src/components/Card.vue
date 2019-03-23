@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="shape === 'n'" class="card small" :class="classes">
+    <div v-if="shape === 'n'" class="card" :class="classes">
       <div class="shape" v-for="a of amount" :key="a">
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 106.058">
           <path
@@ -8,14 +8,14 @@
         </svg>
       </div>
     </div>
-    <div v-if="shape === 'd'" class="card small" :class="classes">
+    <div v-if="shape === 'd'" class="card" :class="classes">
       <div class="shape" v-for="a of amount" :key="a">
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 223.621 104.493">
           <polygon points="211.811,52.247 111.811,98.974 11.811,52.247 111.811,5.519"></polygon>
         </svg>
       </div>
     </div>
-    <div v-if="shape === 'p'" class="card small" :class="classes">
+    <div v-if="shape === 'p'" class="card" :class="classes">
       <div class="shape" v-for="a of amount" :key="a">
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 101.429">
           <path
@@ -99,15 +99,20 @@
     align-items: center;
     cursor: pointer;
 
-    --width: 70px;
+    --width: 10vh;
     width: var(--width);
     height: calc(var(--width) * 1.5);
     background: #fff;
     border-radius: 6px;
-    -webkit-box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.3);
     box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.3);
     transition: transform 0.2s ease-in-out;
     margin: 5px;
+  }
+
+  .tiny > .card {
+    --width: 30px;
+    width: var(--width);
+    height: calc(var(--width) * 1.5);
   }
 
   .card:nth-child(4n + 1) {
@@ -115,19 +120,13 @@
   }
 
   .selected {
-    -webkit-box-shadow: 0px 0px 3px 2px #3498db;
     box-shadow: 0px 0px 3px 2px #3498db;
-    -webkit-transform: scale(1.05);
-    -ms-transform: scale(1.05);
     transform: scale(1.05);
     animation: 0.2s select-pop;
   }
 
   .shape {
     position: relative;
-    -webkit-flex: 0 0 auto;
-    -ms-flex: 0 0 auto;
-    flex: 0 0 auto;
     width: 72%;
     height: 25%;
     margin-top: 3%;
@@ -203,18 +202,6 @@
   .purple.hollow path,
   .purple.hollow polygon {
     fill: transparent;
-  }
-
-  @media (max-width: 600px) {
-    .card {
-      --width: 70px;
-    }
-  }
-
-  @media (min-width: 600px) {
-    .card {
-      --width: 100px;
-    }
   }
 
 </style>
