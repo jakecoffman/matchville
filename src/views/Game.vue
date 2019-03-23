@@ -16,7 +16,7 @@
     <div v-else class="info row">
       Welcome to Set!
     </div>
-    <div class="alert">
+    <div class="alert" v-if="connected !== 1">
       <div v-if="connected===0">Connecting</div>
       <div v-if="connected===2">Disconnected <button @click="reload()">reload</button> to rejoin</div>
     </div>
