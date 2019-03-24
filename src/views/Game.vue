@@ -140,7 +140,7 @@
         if (this.$route.params.id) {
           this.join(this.$route.params.id);
         } else {
-          this.join('');
+          this.rejoin();
         }
       },
       onerror(e) {
@@ -193,6 +193,9 @@
       },
       join(id) {
         this.ws.send(JSON.stringify({Type: "join", Data: id}));
+      },
+      rejoin() {
+        this.ws.send(JSON.stringify({Type: "rejoin"}));
       },
       readyUp() {
         this.ws.send(JSON.stringify({Type: "ready", Data: !this.me.Ready}));
