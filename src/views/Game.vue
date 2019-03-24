@@ -60,7 +60,7 @@
           <tbody>
           <tr v-for="player of players" :key="player.Id">
             <td>{{player.Name || player.Id}}
-              <span class="aside" v-if="player.Connected === false">(offline)</span>
+              <span class="aside" v-if="!player.Connected">(offline)</span>
               <span class="aside" v-if="you === player.Id">(you) </span>
               <span class="aside" v-if="!player.Ready">Not Ready</span>
             </td>
@@ -189,6 +189,7 @@
           default:
             console.log("unknown type", data);
         }
+        this.$forceUpdate()
       },
       join(id) {
         this.ws.send(JSON.stringify({Type: "join", Data: id}));
