@@ -2,7 +2,7 @@
   <div class="hello">
     <div v-if="alert" class="info row">
       <span v-if="you === alert.Player">you:</span>
-      <span v-else>player {{alert.Player}}:</span>
+      <span v-else>{{players.find(p => p.Id === alert.Player).Name || `player ${alert.Player}`}}:</span>
       &nbsp;(<span v-if="alert.Score > 0">+</span>{{alert.Score}})
       <span v-for="card of alert.Cards" :key="card.s+card.c+card.p+card.a">
         <card class="animate-in tiny"
