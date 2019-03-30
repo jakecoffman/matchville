@@ -2,7 +2,7 @@
   <div class="hello">
     <div v-if="alert" class="info row">
       <span v-if="you === alert.Player">you:</span>
-      <span v-else>{{players.find(p => p.Id === alert.Player).Name || `player ${alert.Player}`}}:</span>
+      <span v-else>{{players[alert.Player] ? players[alert.Player].Name : `player ${alert.Player}`}}:</span>
       &nbsp;(<span v-if="alert.Score > 0">+</span>{{alert.Score}})
       <span v-for="card of alert.Cards" :key="card.s+card.c+card.p+card.a">
         <card class="animate-in tiny"
@@ -57,16 +57,16 @@
             <th>Score</th>
           </tr>
           </thead>
-          <tbody>
-          <tr v-for="player of players" :key="player.Id">
-            <td>{{player.Name || player.Id}}
-              <span class="aside" v-if="!player.Connected">(offline)</span>
-              <span class="aside" v-if="you === player.Id">(you) </span>
-              <span class="aside" v-if="!player.Ready">Not Ready</span>
-            </td>
-            <td>{{player.Score}}</td>
-          </tr>
-          </tbody>
+          <transition-group name="flip-list" tag="tbody">
+            <tr v-for="player of sortedPlayers" :key="player.Id">
+              <td>{{player.Name || player.Id}}
+                <span class="aside" v-if="!player.Connected">(offline)</span>
+                <span class="aside" v-if="you === player.Id">(you) </span>
+                <span class="aside" v-if="!player.Ready">Not Ready</span>
+              </td>
+              <td>{{player.Score}}</td>
+            </tr>
+          </transition-group>
         </table>
       </div>
       <p>Game ID: {{gameId}}</p>
@@ -100,7 +100,7 @@
         playing: false,
         cards: [],
         gameId: '',
-        players: [],
+        players: {},
         version: -1,
         you: 0,
         selected: [], // selected cards (local only),
@@ -131,7 +131,10 @@
     },
     computed: {
       me() {
-        return this.players.find(p => p.Id === this.you) || {Ready: false}
+        return this.players[this.you] || {Ready: false}
+      },
+      sortedPlayers() {
+        return Object.values(this.players).sort((a, b) => b.Score - a.Score)
       }
     },
     methods: {
@@ -407,5 +410,9 @@
     button {
       border-radius: 0 4px 4px 0;
     }
+  }
+
+  .flip-list-move {
+    transition: transform 1s;
   }
 </style>
