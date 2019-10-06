@@ -38,7 +38,7 @@
     }
   }
 </script>
-<style type="scss">
+<style>
   .help {
     padding: 2em;
   }

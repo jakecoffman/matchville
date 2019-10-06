@@ -16,9 +16,9 @@
     <div v-else class="info row">
       Welcome to Matchville!
     </div>
-    <div class="alert" v-if="connected !== 1">
-      <div v-if="connected===0">Connecting</div>
-      <div v-if="connected===2">Disconnected <button @click="reload()">reload</button> to rejoin</div>
+    <div class="info row" v-if="connected === 0">Connecting</div>
+    <div class="info row" v-if="connected === 2">
+      <span style="height: 100%;">Disconnected <button class="small" @click="reload()">reload</button> to rejoin</span>
     </div>
     <div class="main" v-if="playing">
       <div class="column" id="deal">
@@ -249,7 +249,7 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
   html {
     height: 100%;
   }
@@ -290,20 +290,12 @@
     z-index: 1000;
   }
 
-  .alert {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: #303030;
+  .info button {
     color: white;
-    padding: 10px 40px 10px 20px;
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    button {
-      color: white;
-    }
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
   }
 
   .info {
@@ -311,10 +303,16 @@
     top: 0;
     left: 0;
     right: 0;
-    background: #303030;
+    height: 4rem;
+    padding: 1rem;
+
+    background: #000000;
     color: white;
-    height: 55px;
     z-index: 1000;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .bounce-enter-active {
@@ -386,6 +384,7 @@
   }
 
   .main {
+    margin-top: 1rem;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -401,15 +400,16 @@
   .conjoined {
     display: flex;
     flex-direction: row;
+  }
 
-    input {
-      border-radius: 4px 0 0 4px;
-      border-right: none;
-    }
+  .conjoined > input {
+    border-radius: 4px 0 0 4px;
+    border-right: none;
+  }
 
-    button {
-      border-radius: 0 4px 4px 0;
-    }
+  .conjoined > button {
+    border-radius: 0 4px 4px 0;
+    border-left: 1px solid #ccc;
   }
 
   .flip-list-move {
