@@ -1,88 +1,88 @@
 <template>
-  <div class="hello">
-    <div v-if="alert" class="info row">
-      <span v-if="you === alert.Player">you:</span>
-      <span v-else>{{players[alert.Player] ? players[alert.Player].Name : `player ${alert.Player}`}}:</span>
-      &nbsp;(<span v-if="alert.Score > 0">+</span>{{alert.Score}})
-      <span v-for="card of alert.Cards" :key="card.s+card.c+card.p+card.a">
-        <card class="animate-in tiny"
-                  :shape="card.s"
-                  :color="card.c"
-                  :pattern="card.p"
-                  :amount="card.a"/>
-      </span>
-      {{alert.Words}}
-    </div>
-    <div v-else class="info row">
-      Welcome to Matchville!
-    </div>
-    <div class="info row" v-if="connected === 0">Connecting</div>
-    <div class="info row" v-if="connected === 2">
-      <span style="height: 100%;">Disconnected <button class="small" @click="reload()">reload</button> to rejoin</span>
-    </div>
-    <div class="main" v-if="playing">
-      <div class="column" id="deal">
-        <button id="deal-btn" @click="nosets()" class="button-primary">no sets (deal more)</button>
-      </div>
-      <transition-group name="bounce" id="cards" mode="out-in" tag="div">
-        <div v-for="(card, index) of cards" :key="card.s+card.c+card.p+card.a"
-             @click="selectHandler(index)"
-             @touchstart="touchStart()"
-             @touchmove="touchMove($event)"
-             @touchend="touchEnd(index, $event)">
-          <card class="animate-in"
-            :shape="card.s"
-            :color="card.c"
-            :pattern="card.p"
-            :amount="card.a"
-            :selected="selected"
-            :index="index"/>
+    <div class="hello">
+        <div class="info">
+            <div v-if="alert" class="row">
+                <span v-if="you === alert.Player">you:</span>
+                <span v-else>{{players[alert.Player] ? players[alert.Player].Name : `player ${alert.Player}`}}:</span>
+                &nbsp;(<span v-if="alert.Score > 0">+</span>{{alert.Score}})
+                <span v-for="card of alert.Cards" :key="card.s+card.c+card.p+card.a">
+                  <card class="animate-in tiny" :shape="card.s" :color="card.c" :pattern="card.p" :amount="card.a"/>
+                </span>
+                {{alert.Words}}
+            </div>
+            <div v-else>
+                <span v-if="connected === 0">Connecting</span>
+                <span v-else-if="connected === 2">
+                    <span style="height: 100%;">Disconnected<button class="small" @click="reload()">reload</button> to rejoin</span>
+                </span>
+                <span v-else>Welcome to Matchville!</span>
+            </div>
         </div>
-      </transition-group>
-    </div>
 
-    <div class="column" id="more">
-      <div v-if="!playing" class="column">
-        <br/>
-        <button @click="readyUp()" :class="{ready: me.Ready, notReady: !me.Ready}">
-          <span v-if="me.Ready">Unready</span>
-          <span v-else>Ready up</span>
-        </button>
-      </div>
-      <div id="players">
-        <table>
-          <thead>
-          <tr>
-            <th>Player</th>
-            <th>Score</th>
-          </tr>
-          </thead>
-          <transition-group name="flip-list" tag="tbody">
-            <tr v-for="player of sortedPlayers" :key="player.Id">
-              <td>{{player.Name || player.Id}}
-                <span class="aside" v-if="!player.Connected">(offline)</span>
-                <span class="aside" v-if="you === player.Id">(you) </span>
-                <span class="aside" v-if="!player.Ready">Not Ready</span>
-              </td>
-              <td>{{player.Score}}</td>
-            </tr>
-          </transition-group>
-        </table>
-      </div>
-      <p>Game ID: {{gameId}}</p>
-      <router-link tag="button" class="pink" :to="'/'+gameId+'/help'">how to play</router-link>
-      <div class="conjoined">
-        <input type="text" v-model="name" placeholder="Rename yourself" maxlength="9">
-        <button @click="rename(name)">rename</button>
-      </div>
-      <button @click="join('')">start a new game</button>
-      <div class="conjoined">
-        <input type="number" v-model="input" placeholder="Join by Game ID" id="join">
-        <button @click="join(input)">join</button>
-      </div>
-    </div>
+        <!-- Main -->
+        <div class="main" v-if="playing">
+            <div class="column" id="deal">
+                <button id="deal-btn" @click="nosets()" class="button-primary">no sets (deal more)</button>
+            </div>
+            <transition-group name="bounce" id="cards" mode="out-in" tag="div">
+                <div v-for="(card, index) of cards" :key="card.s+card.c+card.p+card.a"
+                     @click="selectHandler(index)"
+                     @touchstart="touchStart()"
+                     @touchmove="touchMove($event)"
+                     @touchend="touchEnd(index, $event)">
+                    <card class="animate-in"
+                          :shape="card.s"
+                          :color="card.c"
+                          :pattern="card.p"
+                          :amount="card.a"
+                          :selected="selected"
+                          :index="index"/>
+                </div>
+            </transition-group>
+        </div>
 
-  </div>
+        <div class="column" id="more">
+            <div v-if="!playing" class="column">
+                <br/>
+                <button @click="readyUp()" :class="{ready: me.Ready, notReady: !me.Ready}">
+                    <span v-if="me.Ready">Unready</span>
+                    <span v-else>Ready up</span>
+                </button>
+            </div>
+            <div id="players">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Player</th>
+                        <th>Score</th>
+                    </tr>
+                    </thead>
+                    <transition-group name="flip-list" tag="tbody">
+                        <tr v-for="player of sortedPlayers" :key="player.Id">
+                            <td>{{player.Name || player.Id}}
+                                <span class="aside" v-if="!player.Connected">(offline)</span>
+                                <span class="aside" v-if="you === player.Id">(you) </span>
+                                <span class="aside" v-if="!player.Ready">Not Ready</span>
+                            </td>
+                            <td>{{player.Score}}</td>
+                        </tr>
+                    </transition-group>
+                </table>
+            </div>
+            <p>Game ID: {{gameId}}</p>
+            <router-link tag="button" class="pink" :to="'/'+gameId+'/help'">how to play</router-link>
+            <div class="conjoined">
+                <input type="text" v-model="name" placeholder="Rename yourself" maxlength="9">
+                <button @click="rename(name)">rename</button>
+            </div>
+            <button @click="join('')">start a new game</button>
+            <div class="conjoined">
+                <input type="number" v-model="input" placeholder="Join by Game ID" id="join">
+                <button @click="join(input)">join</button>
+            </div>
+        </div>
+
+    </div>
 </template>
 
 <script>
@@ -138,7 +138,7 @@
       }
     },
     methods: {
-      onopen(e) {
+      onopen() {
         this.connected = 1;
         if (this.$route.params.id) {
           this.join(this.$route.params.id);
@@ -147,10 +147,11 @@
         }
       },
       onerror(e) {
+        // eslint-disable-next-line no-console
         console.error(e);
         this.connected = 2;
       },
-      onclose(e) {
+      onclose() {
         this.connected = 2;
       },
       onmessage(e) {
@@ -190,6 +191,7 @@
             this.alert = data;
             break;
           default:
+            // eslint-disable-next-line no-console
             console.log("unknown type", data);
         }
         this.$forceUpdate()
@@ -250,170 +252,178 @@
 </script>
 
 <style scoped>
-  html {
-    height: 100%;
-  }
+    html {
+        height: 100%;
+    }
 
-  body {
-    height: 100%;
-    margin: auto;
-    font-family: Verdana, sans-serif;
-  }
+    body {
+        height: 100%;
+        margin: auto;
+        font-family: Verdana, sans-serif;
+    }
 
-  main {
-    height: 100%;
-  }
+    main {
+        height: 100%;
+    }
 
-  footer {
-    background: #4aa3df;
-  }
+    footer {
+        background: #4aa3df;
+    }
 
-  .hello {
-    padding-top: 55px;
-  }
+    .hello {
+        display: grid;
+        grid-template-rows: 4rem 1fr;
+        grid-template-columns: 1fr;
+        grid-gap: 1rem;
+    }
 
-  #cards {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 0.5rem;
-  }
-
-  @media(min-width: 700px) {
     #cards {
-      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 0.5rem;
+        padding-left: 1rem;
     }
-  }
 
-  #more {
-    margin: 0;
-    padding: 1rem 0 0;
-    z-index: 1000;
-  }
-
-  .info button {
-    background: black;
-    color: white;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    margin-left: 1rem;
-    margin-right: 1rem;
-  }
-
-  .info {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4rem;
-    padding: 1rem;
-
-    background: #000000;
-    color: white;
-    z-index: 1000;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .bounce-enter-active {
-    animation: bounceIn 0.75s;
-  }
-
-  .bounce-move {
-    transition: transform 0.5s;
-  }
-
-  .bounce-leave-active {
-    position: absolute;
-  }
-
-  .bounce-leave-to
-    /* .list-complete-leave-active below version 2.1.8 */ {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-
-  @keyframes bounceIn {
-    0%, 15%, 30%, 45%, 80%, 100% {
-      -webkit-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-      transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    @media (min-width: 700px) {
+        .hello {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+        .info {
+            grid-column-start: 1;
+            grid-column-end: 3;
+        }
     }
-    0% {
-      -webkit-transform: scale3d(0.2, 0.2, 0.2);
-      transform: scale3d(0.2, 0.2, 0.2);
+
+    #more {
+        margin: 0;
+        padding: 1rem 0 0;
+        z-index: 1000;
     }
-    15% {
-      -webkit-transform: scale3d(1.37, 1.37, 1.37);
-      transform: scale3d(1.37, 1.37, 1.37);
+
+    .info button {
+        background: black;
+        color: white;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        margin-left: 1rem;
+        margin-right: 1rem;
     }
-    30% {
-      -webkit-transform: scale3d(0.85, 0.85, 0.85);
-      transform: scale3d(0.85, 0.85, 0.85);
+
+    .info {
+        height: 4rem;
+        padding: 1rem;
+
+        background: #000000;
+        color: white;
+        z-index: 1000;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
-    45% {
-      -webkit-transform: scale3d(1.04, 1.04, 1.04);
-      transform: scale3d(1.04, 1.04, 1.04);
+
+    .bounce-enter-active {
+        animation: bounceIn 0.75s;
     }
-    80% {
-      -webkit-transform: scale3d(0.97, 0.97, 0.97);
-      transform: scale3d(0.97, 0.97, 0.97);
+
+    .bounce-move {
+        transition: transform 0.5s;
     }
-    100% {
-      -webkit-transform: scale3d(1, 1, 1);
-      transform: scale3d(1, 1, 1);
+
+    .bounce-leave-active {
+        position: absolute;
     }
-  }
 
-  .animate-in {
-    -webkit-animation: bounceIn 1s both linear;
-    animation: bounceIn 1s both linear;
-  }
+    .bounce-leave-to
+        /* .list-complete-leave-active below version 2.1.8 */
+    {
+        opacity: 0;
+        transform: translateY(30px);
+    }
 
-  .aside {
-    font-style: italic;
-  }
+    @keyframes bounceIn {
+        0%, 15%, 30%, 45%, 80%, 100% {
+            -webkit-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+            transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+        0% {
+            -webkit-transform: scale3d(0.2, 0.2, 0.2);
+            transform: scale3d(0.2, 0.2, 0.2);
+        }
+        15% {
+            -webkit-transform: scale3d(1.37, 1.37, 1.37);
+            transform: scale3d(1.37, 1.37, 1.37);
+        }
+        30% {
+            -webkit-transform: scale3d(0.85, 0.85, 0.85);
+            transform: scale3d(0.85, 0.85, 0.85);
+        }
+        45% {
+            -webkit-transform: scale3d(1.04, 1.04, 1.04);
+            transform: scale3d(1.04, 1.04, 1.04);
+        }
+        80% {
+            -webkit-transform: scale3d(0.97, 0.97, 0.97);
+            transform: scale3d(0.97, 0.97, 0.97);
+        }
+        100% {
+            -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+        }
+    }
 
-  .pink {
-    background-color: #edefff;
-  }
+    .animate-in {
+        -webkit-animation: bounceIn 1s both linear;
+        animation: bounceIn 1s both linear;
+    }
 
-  #deal {
-    transform: rotate(-90deg);
-    max-width: 8rem;
-    margin-right: -3rem;
-  }
+    .aside {
+        font-style: italic;
+    }
 
-  .main {
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-  }
+    .pink {
+        background-color: #edefff;
+    }
 
-  .ready {
-    background: red;
-  }
-  .notReady {
-    background: #b2ffb2;
-  }
+    #deal {
+        transform: rotate(-90deg);
+        max-width: 8rem;
+        margin-right: -3rem;
+    }
 
-  .conjoined {
-    display: flex;
-    flex-direction: row;
-  }
+    .main {
+        margin-top: 1rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
 
-  .conjoined > input {
-    border-radius: 4px 0 0 4px;
-    border-right: none;
-  }
+    .ready {
+        background: red;
+    }
 
-  .conjoined > button {
-    border-radius: 0 4px 4px 0;
-    border-left: 1px solid #ccc;
-  }
+    .notReady {
+        background: #b2ffb2;
+    }
 
-  .flip-list-move {
-    transition: transform 1s;
-  }
+    .conjoined {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .conjoined > input {
+        border-radius: 4px 0 0 4px;
+        border-right: none;
+    }
+
+    .conjoined > button {
+        border-radius: 0 4px 4px 0;
+        border-left: 1px solid #ccc;
+    }
+
+    .flip-list-move {
+        transition: transform 1s;
+    }
 </style>
