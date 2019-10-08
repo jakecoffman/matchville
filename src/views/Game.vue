@@ -1,7 +1,7 @@
 <template>
     <div class="hello">
         <div class="info">
-            <span v-if="connected === 0" class="h-100">Connecting</span>
+            <span v-if="connected === 0" class="h-100 row">Connecting</span>
             <div v-else-if="connected === 2" class="h-100">
                 Disconnected<button class="small" @click="reload()">reload</button> to rejoin
             </div>
@@ -38,15 +38,31 @@
                 </div>
             </transition-group>
         </div>
+        <div v-else class="nice">
+            <h2>Matchville</h2>
+            <p>Click
+                <span v-if="me.Ready">
+                    <button @click="readyUp()" class="ready">Unready</button>
+                    to keep the game from starting.
+                </span>
+                <span v-else>
+                    <button @click="readyUp()" class="notReady">Ready Up</button>
+                    to start playing.
+                </span>
+            </p>
+            <p>
+                To invite: send friends the Game ID or send this URL.
+            </p>
+            <p>
+                To join: enter the Game ID it in the "Join by Game ID" box.
+            </p>
+            <p>
+                If this is your first time playing click "How to Play" for instructions.
+            </p>
+        </div>
 
-        <div class="column" id="more">
-            <div v-if="!playing" class="column">
-                <br/>
-                <button @click="readyUp()" :class="{ready: me.Ready, notReady: !me.Ready}">
-                    <span v-if="me.Ready">Unready</span>
-                    <span v-else>Ready up</span>
-                </button>
-            </div>
+        <div class="nice" id="more">
+            <h3>Scorecard</h3>
             <div id="players">
                 <table>
                     <thead>
@@ -73,7 +89,7 @@
                 <input type="text" v-model="name" placeholder="Rename yourself" maxlength="9">
                 <button @click="rename(name)">rename</button>
             </div>
-            <button @click="join('')">start a new game</button>
+            <button @click="join('')" v-if="playing">start a new game</button>
             <div class="conjoined">
                 <input type="number" v-model="input" placeholder="Join by Game ID" id="join">
                 <button @click="join(input)">join</button>
@@ -285,7 +301,7 @@
         padding-left: 1rem;
     }
 
-    @media (min-width: 700px) {
+    @media (min-width: 780px) {
         .hello {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -294,12 +310,6 @@
             grid-column-start: 1;
             grid-column-end: 3;
         }
-    }
-
-    #more {
-        margin: 0;
-        padding: 1rem 0 0;
-        z-index: 1000;
     }
 
     .info button {
@@ -336,9 +346,7 @@
         position: absolute;
     }
 
-    .bounce-leave-to
-        /* .list-complete-leave-active below version 2.1.8 */
-    {
+    .bounce-leave-to {
         opacity: 0;
         transform: translateY(30px);
     }
@@ -426,5 +434,18 @@
 
     .flip-list-move {
         transition: transform 1s;
+    }
+
+    .nice {
+        padding: 1rem;
+        margin: 1rem;
+        background: white;
+        border-radius: 5px;
+        box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.3);
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 </style>

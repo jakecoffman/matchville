@@ -109,6 +109,14 @@
     margin: 5px;
   }
 
+  @media (min-width: 780px) {
+    .card {
+      --width: 100px;
+      width: var(--width);
+      height: calc(var(--width) * 1.5);
+    }
+  }
+
   .tiny > .card {
     --width: 30px;
     width: var(--width);
