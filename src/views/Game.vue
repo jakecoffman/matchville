@@ -1,7 +1,11 @@
 <template>
     <div class="hello">
         <div class="info">
-            <div v-if="alert" class="row">
+            <span v-if="connected === 0" class="h-100">Connecting</span>
+            <div v-else-if="connected === 2" class="h-100">
+                Disconnected<button class="small" @click="reload()">reload</button> to rejoin
+            </div>
+            <div v-else-if="alert" class="row h-100">
                 <span v-if="you === alert.Player">you:</span>
                 <span v-else>{{players[alert.Player] ? players[alert.Player].Name : `player ${alert.Player}`}}:</span>
                 &nbsp;(<span v-if="alert.Score > 0">+</span>{{alert.Score}})
@@ -10,13 +14,7 @@
                 </span>
                 {{alert.Words}}
             </div>
-            <div v-else>
-                <span v-if="connected === 0">Connecting</span>
-                <span v-else-if="connected === 2">
-                    <span style="height: 100%;">Disconnected<button class="small" @click="reload()">reload</button> to rejoin</span>
-                </span>
-                <span v-else>Welcome to Matchville!</span>
-            </div>
+            <span v-else>Welcome to Matchville!</span>
         </div>
 
         <!-- Main -->
@@ -81,7 +79,6 @@
                 <button @click="join(input)">join</button>
             </div>
         </div>
-
     </div>
 </template>
 
@@ -266,6 +263,10 @@
         height: 100%;
     }
 
+    .h-100 {
+        height: 100%;
+    }
+
     footer {
         background: #4aa3df;
     }
@@ -274,7 +275,7 @@
         display: grid;
         grid-template-rows: 4rem 1fr;
         grid-template-columns: 1fr;
-        grid-gap: 1rem;
+        grid-gap: 2rem;
     }
 
     #cards {
