@@ -151,13 +151,13 @@
 
   .red path,
   .red polygon {
-    stroke: #e74c3c;
+    stroke: #3f88c5;
     stroke-width: 8px;
   }
 
   .red.solid path,
   .red.solid polygon {
-    fill: #e74c3c;
+    fill: #3f88c5;
   }
 
   .red.striped path,
@@ -172,13 +172,13 @@
 
   .green path,
   .green polygon {
-    stroke: #2ecc71;
+    stroke: #f49d37;
     stroke-width: 8px;
   }
 
   .green.solid path,
   .green.solid polygon {
-    fill: #2ecc71;
+    fill: #f49d37;
   }
 
   .green.striped path,
@@ -193,13 +193,13 @@
 
   .purple path,
   .purple polygon {
-    stroke: #9b59b6;
+    stroke: #f22b29;
     stroke-width: 8px;
   }
 
   .purple.solid path,
   .purple.solid polygon {
-    fill: #9b59b6;
+    fill: #f22b29;
   }
 
   .purple.striped path,
