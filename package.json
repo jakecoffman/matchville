@@ -10,7 +10,8 @@
   "dependencies": {
     "register-service-worker": "^1.6.2",
     "vue": "^2.6.10",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vue-svg-loader": "^0.12.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.5.0",
@@ -20,6 +21,7 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
+    "vue-cli-plugin-svg-loader": "^1.1.0",
     "vue-template-compiler": "^2.5.21"
   },
   "eslintConfig": {

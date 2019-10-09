@@ -2,31 +2,32 @@
   <div>
     <div v-if="shape === 'n'" class="card" :class="classes">
       <div class="shape" v-for="a of amount" :key="a">
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 106.058">
-          <path
-            d="M81.442,14.792c13.791,1.487,17.955,2.853,29.088,6.921c17.255,6.307,32.98,3.611,48.464-4.519c4.869-2.557,9.379-5.785,14.096-8.64c11.231-6.794,21.987-3.746,27.416,8.255c7.255,16.35,5.223,31.92-2.491,47.142c-13.492,26.623-38.203,34.367-64.534,29.43c-14.679-2.97-28.883-8.259-43.537-11.403c-17.457-3.745-33.689,.502-48.567,10.238c-3.548,2.321-7.216,4.498-10.981,6.443c-11.57,5.98-20.215,2.23-23.625-10.337C1.708,69.282,7.989,53.525,19.427,39.053C33.758,20.92,52.818,12.638,81.442,14.792z"></path>
-        </svg>
+        <nut/>
       </div>
     </div>
     <div v-if="shape === 'd'" class="card" :class="classes">
       <div class="shape" v-for="a of amount" :key="a">
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 223.621 104.493">
-          <polygon points="211.811,52.247 111.811,98.974 11.811,52.247 111.811,5.519"></polygon>
-        </svg>
+        <diamond/>
       </div>
     </div>
     <div v-if="shape === 'p'" class="card" :class="classes">
       <div class="shape" v-for="a of amount" :key="a">
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 101.429">
-          <path
-            d="M159.286,96.429c25.247,0,45.714-20.467,45.714-45.714S184.533,5,159.286,5H50.714C25.467,5,5,25.467,5,50.714s20.467,45.714,45.714,45.714H159.286z"></path>
-        </svg>
+        <pill/>
       </div>
     </div>
   </div>
 </template>
 <script>
+    import Diamond from '@/assets/diamond.svg'
+    import Nut from '@/assets/nut.svg'
+    import Pill from '@/assets/pill.svg'
+
   export default {
+    components: {
+      Diamond,
+      Nut,
+      Pill
+    },
     props: {
       shape: {
         type: String,
