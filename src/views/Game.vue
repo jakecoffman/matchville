@@ -3,7 +3,9 @@
         <div class="info">
             <span v-if="connected === 0" class="h-100 row">Connecting</span>
             <div v-else-if="connected === 2" class="h-100">
-                Disconnected<button class="small" @click="reload()">reload</button> to rejoin
+                Disconnected
+                <button class="small" @click="reload()">reload</button>
+                to rejoin
             </div>
             <div v-else-if="alert" class="row h-100">
                 <span v-if="you === alert.Player">you:</span>
@@ -18,10 +20,10 @@
         </div>
 
         <!-- Main -->
+        <div id="deal" v-if="playing">
+            <button id="deal-btn" @click="nosets()" class="button-primary">no sets (deal more)</button>
+        </div>
         <div class="main" v-if="playing">
-            <div class="column" id="deal">
-                <button id="deal-btn" @click="nosets()" class="button-primary">no sets (deal more)</button>
-            </div>
             <transition-group name="bounce" id="cards" mode="out-in" tag="div">
                 <div v-for="(card, index) of cards" :key="card.s+card.c+card.p+card.a"
                      @click="selectHandler(index)"
@@ -61,38 +63,40 @@
             </p>
         </div>
 
-        <div class="nice" id="more">
-            <h3>Scorecard</h3>
-            <div id="players">
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Player</th>
-                        <th>Score</th>
-                    </tr>
-                    </thead>
-                    <transition-group name="flip-list" tag="tbody">
-                        <tr v-for="player of sortedPlayers" :key="player.Id">
-                            <td>{{player.Name || player.Id}}
-                                <span class="aside" v-if="!player.Connected">(offline)</span>
-                                <span class="aside" v-if="you === player.Id">(you) </span>
-                                <span class="aside" v-if="!player.Ready">Not Ready</span>
-                            </td>
-                            <td>{{player.Score}}</td>
+        <div class="scorecard">
+            <div class="nice">
+                <h3>Scorecard</h3>
+                <div id="players">
+                    <table style="width: 100%;">
+                        <thead>
+                        <tr>
+                            <th>Player</th>
+                            <th>Score</th>
                         </tr>
-                    </transition-group>
-                </table>
-            </div>
-            <p>Game ID: {{gameId}}</p>
-            <router-link tag="button" class="pink" :to="'/'+gameId+'/help'">how to play</router-link>
-            <div class="conjoined">
-                <input type="text" v-model="name" placeholder="Rename yourself" maxlength="9">
-                <button @click="rename(name)">rename</button>
-            </div>
-            <button @click="join('')" v-if="playing">start a new game</button>
-            <div class="conjoined">
-                <input type="number" v-model="input" placeholder="Join by Game ID" id="join">
-                <button @click="join(input)">join</button>
+                        </thead>
+                        <transition-group name="flip-list" tag="tbody">
+                            <tr v-for="player of sortedPlayers" :key="player.Id">
+                                <td>{{player.Name || player.Id}}
+                                    <span class="aside" v-if="!player.Connected">(offline)</span>
+                                    <span class="aside" v-if="you === player.Id">(you) </span>
+                                    <span class="aside" v-if="!player.Ready">Not Ready</span>
+                                </td>
+                                <td>{{player.Score}}</td>
+                            </tr>
+                        </transition-group>
+                    </table>
+                </div>
+                <p>Game ID: {{gameId}}</p>
+                <router-link tag="button" class="pink" :to="'/'+gameId+'/help'">how to play</router-link>
+                <div class="conjoined">
+                    <input type="text" v-model="name" placeholder="Rename yourself" maxlength="9">
+                    <button @click="rename(name)" class="action">rename</button>
+                </div>
+                <button @click="join('')" v-if="playing">start a new game</button>
+                <div class="conjoined">
+                    <input type="number" v-model="input" placeholder="Join by Game ID" id="join">
+                    <button @click="join(input)" class="action">join</button>
+                </div>
             </div>
         </div>
     </div>
@@ -306,6 +310,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
         }
+
         .info {
             grid-column-start: 1;
             grid-column-end: 3;
@@ -396,9 +401,12 @@
     }
 
     #deal {
+        position: absolute;
         transform: rotate(-90deg);
         max-width: 8rem;
         margin-right: -3rem;
+        margin-top: 300px;
+        z-index: 2;
     }
 
     .main {
@@ -425,6 +433,7 @@
     .conjoined > input {
         border-radius: 4px 0 0 4px;
         border-right: none;
+        flex-grow: 1;
     }
 
     .conjoined > button {
@@ -436,16 +445,23 @@
         transition: transform 1s;
     }
 
+    .scorecard {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
     .nice {
-        padding: 1rem;
+        padding: 2rem;
         margin: 1rem;
         background: white;
         border-radius: 5px;
         box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.3);
 
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+        display: inline-block;
+        align-content: center;
         align-items: center;
+        text-align: center;
     }
+
 </style>

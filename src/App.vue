@@ -3,16 +3,16 @@
     <router-view/>
     <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <pattern id="striped-red" class="pattern" x="10" y="10" width="20" height="20" patternUnits="userSpaceOnUse">
-          <rect x="0" y="0" width="10" height="200" style="stroke: none; fill: #3f88c5"></rect>
+        <pattern id="striped-red" class="pattern" x="5" y="10" width="18" height="20" patternUnits="userSpaceOnUse">
+          <rect x="0" y="0" width="8" height="200" style="stroke: none; fill: #3f88c5"></rect>
         </pattern>
 
-        <pattern id="striped-purple" class="pattern" x="10" y="10" width="20" height="20" patternUnits="userSpaceOnUse">
-          <rect x="0" y="0" width="10" height="200" style="stroke: none; fill: #f22b29;"></rect>
+        <pattern id="striped-purple" class="pattern" x="5" y="10" width="18" height="20" patternUnits="userSpaceOnUse">
+          <rect x="0" y="0" width="8" height="200" style="stroke: none; fill: #f22b29;"></rect>
         </pattern>
 
-        <pattern id="striped-green" class="pattern" x="10" y="10" width="20" height="20" patternUnits="userSpaceOnUse">
-          <rect x="0" y="0" width="10" height="200" style="stroke: none; fill: #f49d37"></rect>
+        <pattern id="striped-green" class="pattern" x="5" width="18" height="20" patternUnits="userSpaceOnUse">
+          <rect x="0" y="0" width="8" height="200" style="stroke: none; fill: #f49d37"></rect>
         </pattern>
       </defs>
     </svg>

@@ -2,31 +2,31 @@
   <div>
     <div v-if="shape === 'n'" class="card" :class="classes">
       <div class="shape" v-for="a of amount" :key="a">
-        <nut/>
+        <block/>
       </div>
     </div>
     <div v-if="shape === 'd'" class="card" :class="classes">
       <div class="shape" v-for="a of amount" :key="a">
-        <diamond/>
+        <cloud/>
       </div>
     </div>
     <div v-if="shape === 'p'" class="card" :class="classes">
       <div class="shape" v-for="a of amount" :key="a">
-        <pill/>
+        <drop/>
       </div>
     </div>
   </div>
 </template>
 <script>
-    import Diamond from '@/assets/diamond.svg'
-    import Nut from '@/assets/nut.svg'
-    import Pill from '@/assets/pill.svg'
+    import Cloud from '@/assets/cloud.svg'
+    import Block from '@/assets/block.svg'
+    import Drop from '@/assets/drop.svg'
 
   export default {
     components: {
-      Diamond,
-      Nut,
-      Pill
+      Cloud,
+      Block,
+      Drop
     },
     props: {
       shape: {
