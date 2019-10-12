@@ -2,7 +2,7 @@
   <div>
     <div v-if="shape === 'n'" class="card" :class="classes">
       <div class="shape" v-for="a of amount" :key="a">
-        <block/>
+        <bolt/>
       </div>
     </div>
     <div v-if="shape === 'd'" class="card" :class="classes">
@@ -19,13 +19,13 @@
 </template>
 <script>
     import Cloud from '@/assets/cloud.svg'
-    import Block from '@/assets/block.svg'
+    import Bolt from '@/assets/bolt.svg'
     import Drop from '@/assets/drop.svg'
 
   export default {
     components: {
       Cloud,
-      Block,
+      Bolt,
       Drop
     },
     props: {
