@@ -48,27 +48,18 @@
                     </div>
                 </transition-group>
             </div>
-            <div v-else class="nice">
-                <h2>Matchville</h2>
-                <p>Click
-                    <span v-if="me.Ready">
-                    <button @click="readyUp()" class="ready">Unready</button>
-                    to keep the game from starting.
-                </span>
-                    <span v-else>
-                    <button @click="readyUp()" class="notReady">Ready Up</button>
-                    to start playing.
-                </span>
-                </p>
-                <p>
-                    To invite: send friends the Game ID or send this URL.
-                </p>
-                <p>
-                    To join: enter the Game ID it in the "Join by Game ID" box.
-                </p>
-                <p>
-                    If this is your first time playing click "How to Play" for instructions.
-                </p>
+            <div v-else class="scorecard">
+                <div class="nice">
+                    <h2>Matchville</h2>
+                    <p>Click
+                        <span v-if="me.Ready">
+                            <button @click="readyUp()" class="ready">Unready</button> to keep the game from starting.
+                        </span>
+                        <span v-else>
+                            <button @click="readyUp()" class="notReady">Ready Up</button> to start playing.
+                        </span>
+                    </p>
+                </div>
             </div>
 
             <div class="scorecard">
@@ -478,9 +469,11 @@
     .fade-enter-active, .fade-leave-active {
         transition: opacity .5s;
     }
+
     .fade-enter, .fade-leave-to {
         opacity: 0;
     }
+
     .fullscreen {
         position: absolute;
         width: 100%;
