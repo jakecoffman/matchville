@@ -24,7 +24,7 @@
                 </span>
                     {{alert.Words}}
                 </div>
-                <span v-else>Welcome to Matchville!</span>
+                <span v-else>Welcome to Matchtown!</span>
             </div>
 
             <!-- Main -->
@@ -50,7 +50,7 @@
             </div>
             <div v-else class="scorecard">
                 <div class="nice">
-                    <h2>Matchville</h2>
+                    <h2>Matchtown</h2>
                     <p>Click
                         <span v-if="me.Ready">
                             <button @click="readyUp()" class="ready">Unready</button> to keep the game from starting.
