@@ -13,12 +13,5 @@ module.exports = {
         workboxOptions: {
             skipWaiting: true
         }
-    },
-    pluginOptions: {
-      svgLoader: {
-        svgo: {
-          plugins: []
-        }
-      }
     }
 }

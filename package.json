@@ -11,15 +11,13 @@
     "core-js": "^3.6.5",
     "register-service-worker": "^1.7.1",
     "vue": "^2.6.11",
-    "vue-router": "^3.4.2",
-    "vue-svg-loader": "^0.16.0"
+    "vue-router": "^3.4.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^5.0.8",
     "@vue/cli-plugin-pwa": "^5.0.8",
     "@vue/cli-service": "^5.0.8",
     "eslint-plugin-vue": "^5.2.3",
-    "vue-cli-plugin-svg-loader": "^1.1.1",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
