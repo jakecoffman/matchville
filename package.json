@@ -15,14 +15,11 @@
     "vue-svg-loader": "^0.12.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.4.6",
-    "@vue/cli-plugin-eslint": "^5.0.8",
-    "@vue/cli-plugin-pwa": "^4.4.6",
+    "@vue/cli-plugin-babel": "^5.0.8",
+    "@vue/cli-plugin-pwa": "^5.0.8",
     "@vue/cli-service": "^5.0.8",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.2.3",
-    "vue-cli-plugin-svg-loader": "^1.1.0",
+    "vue-cli-plugin-svg-loader": "^1.1.1",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
