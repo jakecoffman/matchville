@@ -31,3 +31,4 @@ jobs:
         port: 22
         source: "dist/*"
         target: "/opt/setgame/www/set"
+        strip_components: 1 # remove dist/ from the path
