@@ -1,5 +1,5 @@
 <template>
-  <div style="display: flex; justify-content: center; gap: 64px;">
+  <div style="display: flex; justify-content: center; gap: 16px;">
     <span>Game: {{gameId}}</span>
     <img v-if="!copied" src="@/assets/copy.svg" style="width: 32px; height: 32px; cursor: pointer" @click="copyGame()">
     <span v-else style="color: green">✔</span>
