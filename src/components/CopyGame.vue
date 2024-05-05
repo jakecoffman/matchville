@@ -1,7 +1,7 @@
 <template>
   <div style="display: flex; justify-content: center; gap: 8px;">
     <span>Game: {{gameId}}</span>
-    <img v-if="!copied" src="@/assets/copy.svg" style="width: 32px; height: 32px; cursor: pointer" @click="copyGame()">
+    <img v-if="!copied" src="@/assets/copy.png" style="cursor: pointer" @click="copyGame()">
     <img v-else src="@/assets/check.png">
   </div>
 </template>
