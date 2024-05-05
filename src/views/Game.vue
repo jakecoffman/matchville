@@ -85,7 +85,7 @@
                             </transition-group>
                         </table>
                     </div>
-                    <p>Game ID: {{gameId}}</p>
+                    <CopyGame :game-id="gameId"></CopyGame>
                     <router-link tag="button" class="pink" :to="'/'+gameId+'/help'">how to play</router-link>
                     <div class="conjoined">
                         <input type="text" v-model="name" placeholder="Rename yourself" maxlength="9">
@@ -105,9 +105,11 @@
 <script>
     import Card from '@/components/Card'
     import Loader from '@/components/Loader'
+    import CopyGame from "@/components/CopyGame.vue";
 
     export default {
         components: {
+            CopyGame,
             Card,
             Loader
         },
