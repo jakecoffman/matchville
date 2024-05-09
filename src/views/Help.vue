@@ -16,7 +16,7 @@
       <card shape="p" color="p" pattern="h" :amount="2"/>
       <card shape="p" color="p" pattern="z" :amount="3"/>
     </div>
-    <p>This is a set because color and shape are <b>all same</b> and patern and amount are <b>all different</b>.</p>
+    <p>This is a set because color and shape are <b>all same</b> and pattern and amount are <b>all different</b>.</p>
     <div class="row">
       <card shape="n" color="r" pattern="h" :amount="1"/>
       <card shape="d" color="g" pattern="s" :amount="2"/>
