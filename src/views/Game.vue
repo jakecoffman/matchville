@@ -17,7 +17,7 @@
             <div class="info">
                 <div v-if="alert" class="row h-100">
                     <span v-if="you === alert.Player">you:</span>
-                    <span v-else>{{players[alert.Player] ? players[alert.Player].Name : `player ${alert.Player}`}}:</span>
+                    <span v-else>{{players[alert.Player.toString()] ? players[alert.Player.toString()].Name : `player ${alert.Player}`}}:</span>
                     &nbsp;(<span v-if="alert.Score > 0">+</span>{{alert.Score}})
                     <span v-for="card of alert.Cards" :key="card.s+card.c+card.p+card.a">
                   <card class="animate-in tiny" :shape="card.s" :color="card.c" :pattern="card.p" :amount="card.a"/>
