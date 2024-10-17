@@ -85,7 +85,11 @@
                         </table>
                     </div>
                     <CopyGame :game-id="gameId"></CopyGame>
-                    <router-link tag="button" class="pink" :to="'/'+gameId+'/help'">how to play</router-link>
+                    <router-link :to="'/'+gameId+'/help'" custom v-slot="{navigate}">
+                      <button class="pink" @click="navigate" role="link">
+                        how to play
+                      </button>
+                    </router-link>
                     <div class="conjoined">
                         <input type="text" v-model="name" placeholder="Rename yourself" maxlength="9">
                         <button @click="rename(name)" class="action">rename</button>
