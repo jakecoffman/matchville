@@ -1,11 +1,9 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import { createMemoryHistory, createRouter } from 'vue-router'
 import Game from './views/Game'
 import Help from './views/Help'
 
-Vue.use(Router)
-
-export default new Router({
+export default createRouter({
+  history: createMemoryHistory(),
   routes: [
     {
       path: '/',
